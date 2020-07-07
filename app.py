@@ -41,7 +41,7 @@ class Stock(db.Model):
 
 class OrderLine(db.Model):
     order_id = db.Column(db.Integer, primary_key=True)
-    fk_stock_id = db.Column(db.Integer)
+    fk_stock_id = db.Column(db.Integer, nullable=False)
     order_date = db.Column(db.Date, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
@@ -54,37 +54,41 @@ class OrderLine(db.Model):
             ]
         )
 
+
 @app.route('/')
 @app.route('/home')
 def home():
 
     return render_template('homepage.html', title="FISH VAN")
 
+
 @app.route('/orders')
 def order():
     post_data = Posts.quert.all()
     return render_template('orders.html', title="FISH VAN - List Orders", posts=post_data)
 
+
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     form = PostsForm()
     if form.validate_on_submit():
-        post_data = Stock(
-            stock_id=form.stock_id.data,
-            detail=form.detail.data,
-            price=form.price.data,
+        order_data = OrderLine(
+            fk_stock_id=form.fk_order_id,
+            order_date=form.order_date.data,
+            quantity=form.quantity.data,
+            status=form.status.data,
         )
-        db.session.add(post_data)
+        db.session.add(order_data)
         db.session.commit()
         return redirect(url_for('home'))
     else:
-        return render_template('addstock.html', title='Add Stock', form=form)
+        return render_template('placeorder.html', title='Place Order', form=form)
 
 @app.route('/create')
 def create():
     db.create_all()
-    post = Stock(detail='haddock', price='1.50', quantity='12')
-    post2 = Stock(detail='salmon', price='2.50', quantity='6')
+    post = OrderLine(fk_stock_id='1234', order_date='7/7/202', quantity=2, status=1)
+    post2 = OrderLine(fk_stock_id='9233', order_date='7/7/202', quantity=4, status=1)
     db.session.add(post)
     db.session.add(post2)
     db.session.commit()
