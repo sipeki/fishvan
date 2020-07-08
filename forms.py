@@ -18,11 +18,11 @@ class  OrdersForm(FlaskForm):
 
     )
 
+
     order_date = DateField(
         'Order Date',
         default=date.today
     )
-
     quantity = IntegerField(
         'Quantity (max 99)',
         validators=[
@@ -43,4 +43,4 @@ class  OrdersForm(FlaskForm):
 
     )
 
-    submit = SubmitField('Make a Post')
+    submit = SubmitField('Place a order')

@@ -27,8 +27,9 @@
                 </div>
             {%  endif %}
         <br>
+
+        {{ form.quantity.label }}
         {{ form.quantity }}
-        {{ form.quantity}}
          {% if form.quantity.errors %}
                 <div class="error">
                     {%  for error in form.quantity.errors %}

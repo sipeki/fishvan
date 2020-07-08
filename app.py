@@ -61,15 +61,18 @@ def home():
 
     return render_template('homepage.html', title="FISH VAN")
 
+@app.route('/about')
+def about():
+    return render_template('about.html', title="About Us")
 
 @app.route('/orders')
-def order():
+def orders():
     order_data = OrderLine.query.all()
     return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order_data)
 
 
 @app.route('/placeorder', methods=['GET', 'POST'])
-def add():
+def placeorder():
     form = OrdersForm()
     if form.validate_on_submit():
         order_data = OrderLine(
