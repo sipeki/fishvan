@@ -7,7 +7,7 @@ from wtforms.validators import ValidationError
 from wtforms.fields.html5 import DateField, IntegerField
 from wtforms.fields.html5 import DateTimeField
 
-class PostsForm(FlaskForm):
+class  OrdersForm(FlaskForm):
     fk_stock_id = IntegerField(
         'FK Stock ID (max 9999)',
         validators=[

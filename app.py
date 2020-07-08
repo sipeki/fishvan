@@ -3,7 +3,8 @@ from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 
-from forms import PostsForm
+from forms import OrdersForm
+
 app = Flask(__name__)
 
 # make more secure
@@ -63,13 +64,13 @@ def home():
 
 @app.route('/orders')
 def order():
-    post_data = Posts.quert.all()
-    return render_template('orders.html', title="FISH VAN - List Orders", posts=post_data)
+    order_data = OrderLine.query.all()
+    return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order_data)
 
 
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/placeorder', methods=['GET', 'POST'])
 def add():
-    form = PostsForm()
+    form = OrdersForm()
     if form.validate_on_submit():
         order_data = OrderLine(
             fk_stock_id=form.fk_order_id,
@@ -86,8 +87,8 @@ def add():
 @app.route('/create')
 def create():
     db.create_all()
-    post = OrderLine(fk_stock_id='1234', order_date='7/7/202', quantity=2, status=1)
-    post2 = OrderLine(fk_stock_id='9233', order_date='7/7/202', quantity=4, status=1)
+    post = OrderLine(fk_stock_id='1234', order_date='7/07/2020', quantity=2, status=1)
+    post2 = OrderLine(fk_stock_id='9233', order_date='7/07/2020', quantity=4, status=1)
     db.session.add(post)
     db.session.add(post2)
     db.session.commit()
