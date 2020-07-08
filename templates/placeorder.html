@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+extends "layout.html" %}
 
-</body>
-</html>
+{%  block body_content %}
+    <div class="form">
+    <form method="post" action="">
+        {{  form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.fk_stock_id.label }}
+            {{ form.fk_stock_id }}
+            {% if form.f_name.errors %}
+                <div class="error">
+                    {%  for error in form.fk_stock_id.errors %}
+                        <span>{{  error }}</span>
+                    {%  endfor %}
+                </div>
+            {%  endif %}
+        </div>
+
+        <br>
+        {{ form.order_date.label }}
+        {{ form.order_date}}
+         {% if form.order_date.errors %}
+                <div class="error">
+                    {%  for error in form.order_date.errors %}
+                        <span>{{  error }}</span>
+                    {%  endfor %}
+                </div>
+            {%  endif %}
+        <br>
+        {{ form.quantity }}
+        {{ form.quantity}}
+         {% if form.quantity.errors %}
+                <div class="error">
+                    {%  for error in form.quantity.errors %}
+                        <span>{{  error }}</span>
+                    {%  endfor %}
+                </div>
+            {%  endif %}
+        <br>
+        {{ form.status.label }}
+        {{ form.status}}
+         {% if form.status.errors %}
+                <div class="error">
+                    {%  for error in form.status.errors %}
+                        <span>{{  error }}</span>
+                    {%  endfor %}
+                </div>
+            {%  endif %}
+        <br>
+
+        <div class="form-group">
+            {{ form.submit}}
+        </div>
+        <br>
+        <br>
+
+    </form>
+    </div>
+{%  endblock %}

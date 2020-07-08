@@ -1,4 +1,3 @@
-import Posts as Posts
 from flask import Flask, redirect, url_for
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
