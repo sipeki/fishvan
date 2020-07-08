@@ -1,4 +1,4 @@
-extends "layout.html" %}
+{%extends "layout.html" %}
 
 {%  block body_content %}
     <div class="form">
@@ -7,7 +7,7 @@ extends "layout.html" %}
         <div class="form-group">
             {{ form.fk_stock_id.label }}
             {{ form.fk_stock_id }}
-            {% if form.f_name.errors %}
+            {% if form.fk_stock_id.errors %}
                 <div class="error">
                     {%  for error in form.fk_stock_id.errors %}
                         <span>{{  error }}</span>
