@@ -2,10 +2,12 @@ from flask import Flask, redirect, url_for
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
-
 from forms import OrdersForm
+from flask_login import LoginManager
 
 app = Flask(__name__)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 # make more secure
 app.config['SECRET_KEY'] = 'c076a09b61f56e9338a7c7d97244d5b0'
@@ -39,7 +41,7 @@ class Stock(db.Model):
         )
 
 
-class OrderLine(db.Model):
+class Orderline(db.Model):
     order_id = db.Column(db.Integer, primary_key=True)
     fk_stock_id = db.Column(db.Integer, nullable=False)
     order_date = db.Column(db.Date, nullable=False)
@@ -50,7 +52,7 @@ class OrderLine(db.Model):
         return ''.join(
             [
                 'Order ID:  ' + self.order_id + ' FK Stock ID:  ' + self.fk_stock_id + ' Order Date ' + self.order_date +
-                ' Quantity ' + self.quantity + ' Status ' + self.quantity + '\n'
+                ' Quantity ' + self.quantity + ' Status ' + self.status + '\n'
             ]
         )
 
@@ -67,7 +69,7 @@ def about():
 
 @app.route('/orders')
 def orders():
-    order_data = OrderLine.query.all()
+    order_data = Orderline.query.all()
     return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order_data)
 
 
@@ -75,8 +77,8 @@ def orders():
 def placeorder():
     form = OrdersForm()
     if form.validate_on_submit():
-        order_data = OrderLine(
-            fk_stock_id=form.fk_order_id,
+        order_data = Orderline(
+            fk_stock_id=form.fk_stock_id.data,
             order_date=form.order_date.data,
             quantity=form.quantity.data,
             status=form.status.data,
@@ -90,8 +92,8 @@ def placeorder():
 @app.route('/create')
 def create():
     db.create_all()
-    post = OrderLine(fk_stock_id='1234', order_date='7/07/2020', quantity=2, status=1)
-    post2 = OrderLine(fk_stock_id='9233', order_date='7/07/2020', quantity=4, status=1)
+    post = Orderline(fk_stock_id='1234', order_date='08/07/2020', quantity=2, status=1)
+    post2 = Orderline(fk_stock_id='9233', order_date='08/07/2020', quantity=4, status=1)
     db.session.add(post)
     db.session.add(post2)
     db.session.commit()
