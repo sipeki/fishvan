@@ -1,6 +1,5 @@
 import bcrypt
-from flask import Flask, redirect, url_for, request
-from flask import render_template
+from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_bcrypt import Bcrypt
@@ -12,8 +11,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-# login_manager = LoginManager(app)
-# login_manager.login_view = 'login'
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 # make more secure
 app.config['SECRET_KEY'] = 'c076a09b61f56e9338a7c7d97244d5b0'
@@ -72,7 +71,7 @@ class Orderline(db.Model):
         )
 
 
-@app.route('/')
+
 @app.route('/home')
 def home():
 
@@ -130,6 +129,24 @@ def register():
 
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/', methods=['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user=Users.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            else:
+                return redirect(url_for('home'))
+    return render_template('login.html', title='Login', form=form)
 
 if __name__ == '__main__':
     app.run()
