@@ -22,11 +22,21 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
+    f_name = StringField('First Name',
+                             validators=[
+                                 DataRequired(),
+                                 Length(min=2, max=30)
+                             ])
+    l_name = StringField('Last Name',
+                validators=[
+                    DataRequired(),
+                    Length(min=3, max=30)
+                ])
     email = StringField('Email',
-        validators = [
-            DataRequired(),
-            Email()
-        ]
+                validators = [
+                DataRequired(),
+                Email()
+                ]
     )
     password = PasswordField('Password',
         validators = [

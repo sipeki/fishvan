@@ -39,11 +39,20 @@ def load_user(id):
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(500), nullable=False, unique=True)
+    f_name = db.Column(db.String(30), nullable=False)
+    l_name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(150), nullable=False, unique=True)
+    address = db.Column(db.String(150), nullable=False)
+    mobile = db.Column(db.Integer, nullable=False)
     password = db.Column(db.String(500), nullable=False)
+    orders = db.relationship('Orderline', backref='order', lazy=True)
 
-    def __repr__(self):
-        return ''.join(['UserID: ', str(self.id), '\r\n', 'Email: ', self.email])
+
+def __repr__(self):
+        return ''.join(['UserID: ', str(self.id), '\r\n',
+                        'Email: ', self.email, '\r\n',
+                        'Name: ', self.f_name, ' ', self.l_name
+        ])
 
 class Stock(db.Model):
     stock_id = db.Column(db.Integer, primary_key=True)
@@ -61,14 +70,17 @@ class Stock(db.Model):
 
 class Orderline(db.Model):
     order_id = db.Column(db.Integer, primary_key=True)
-    fk_stock_id = db.Column(db.Integer, nullable=False)
-    order_date = db.Column(db.Date, nullable=False)
+    order_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     quantity = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
+    fk_user_id = db.relationship('users', backref='id', lazy=True)
+    fk_stock_id = db.relationship('stock', backref='stock_id', lazy=True)
 
     def __repr__(self):
         return ''.join(
             [
+                'User ID: ', self.fk_user_iduser_id, '\r\n',
+                'Stock ID: ', self.fk_stock_iduser_id, '\r\n',
                 'Order ID:  ' + self.order_id + ' FK Stock ID:  ' + self.fk_stock_id + ' Order Date ' + self.order_date +
                 ' Quantity ' + self.quantity + ' Status ' + self.status + '\n'
             ]

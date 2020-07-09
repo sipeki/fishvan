@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="navbar">
-        {% if not (current_user.is_authenticated and current_user.is_active)%}
+        {%  if not (current_user.is_authenticated and current_user.is_active)%}
             <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('register') }}">Register</a>
         {%  else  %}
@@ -19,6 +19,7 @@
             <a href="{{ url_for('orders') }}">Orders</a>
             <a href="{{ url_for('placeorder') }}">Place a order</a>
         {%  endif %}
+
     </div>
     {% block body_content %}{% endblock %}
 </body>
