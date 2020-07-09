@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_bcrypt import Bcrypt
-from forms import OrdersForm, RegistrationForm
+from forms import OrdersForm, RegistrationForm, LoginForm
 from flask_login import LoginManager
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 from datetime import datetime
