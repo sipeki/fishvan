@@ -1,11 +1,28 @@
 from datetime import date
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField
-from wtforms.validators import DataRequired, Length, NumberRange
-from wtforms.validators import ValidationError
-from wtforms.fields.html5 import DateField, IntegerField
-from wtforms.fields.html5 import DateTimeField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, IntegerField, DateField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
+
+
+class RegistrationForm(FlaskForm):
+    email = StringField('Email',
+        validators = [
+            DataRequired(),
+            Email()
+        ]
+    )
+    password = PasswordField('Password',
+        validators = [
+            DataRequired(),
+        ]
+    )
+    confirm_password = PasswordField('Confirm Password',
+        validators = [
+            DataRequired(),
+            EqualTo('password')
+        ]
+    )
+    submit = SubmitField('Sign Up')
 
 
 class OrdersForm(FlaskForm):
@@ -46,20 +63,3 @@ class OrdersForm(FlaskForm):
     )
     submit = SubmitField('Place a order')
 
-
-class LoginForm(FlaskForm):
-    email = StringField('Email',
-                        validators=[
-                            DataRequired(),
-                            Email()
-                        ]
-                        )
-
-    password = PasswordField('Password',
-                             validators=[
-                                 DataRequired()
-                             ]
-                             )
-
-    remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')

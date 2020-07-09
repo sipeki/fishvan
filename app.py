@@ -1,13 +1,19 @@
-from flask import Flask, redirect, url_for
+import bcrypt
+from flask import Flask, redirect, url_for, request
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
-from forms import OrdersForm
+from flask_bcrypt import Bcrypt
+from forms import OrdersForm, RegistrationForm
 from flask_login import LoginManager
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
+from datetime import datetime
+
 
 app = Flask(__name__)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+bcrypt = Bcrypt(app)
+# login_manager = LoginManager(app)
+# login_manager.login_view = 'login'
 
 # make more secure
 app.config['SECRET_KEY'] = 'c076a09b61f56e9338a7c7d97244d5b0'
@@ -26,6 +32,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + \
                                         environ.get('MYSQL_PRJ_DB_NAME')
 
 db = SQLAlchemy(app)
+
+
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(500), nullable=False, unique=True)
+    password = db.Column(db.String(500), nullable=False)
+
+    def __repr__(self):
+        return ''.join(['UserID: ', str(self.id), '\r\n', 'Email: ', self.email])
 
 class Stock(db.Model):
     stock_id = db.Column(db.Integer, primary_key=True)
@@ -92,12 +107,8 @@ def placeorder():
 @app.route('/create')
 def create():
     db.create_all()
-    post = Orderline(fk_stock_id='1234', order_date='08/07/2020', quantity=2, status=1)
-    post2 = Orderline(fk_stock_id='9233', order_date='08/07/2020', quantity=4, status=1)
-    db.session.add(post)
-    db.session.add(post2)
     db.session.commit()
-    return "Some Lovely data created"
+    return "Some tables created"
 
 @app.route('/delete')
 def delete():
@@ -106,6 +117,19 @@ def delete():
     db.session.commit()
     return "Eveverything is gone"
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hash_pw = bcrypt.generate_password_hash(form.password.data)
+
+        user = Users(email=form.email.data, password=hash_pw)
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('home'))
+    return render_template('register.html', title='Register', form=form)
 
 if __name__ == '__main__':
     app.run()
