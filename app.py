@@ -33,7 +33,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + \
 db = SQLAlchemy(app)
 
 
-class Users(db.Model):
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
+
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(500), nullable=False, unique=True)
     password = db.Column(db.String(500), nullable=False)
@@ -82,12 +86,14 @@ def about():
     return render_template('about.html', title="About Us")
 
 @app.route('/orders')
+@login_required
 def orders():
     order_data = Orderline.query.all()
     return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order_data)
 
 
 @app.route('/placeorder', methods=['GET', 'POST'])
+@login_required
 def placeorder():
     form = OrdersForm()
     if form.validate_on_submit():
@@ -147,6 +153,12 @@ def login():
             else:
                 return redirect(url_for('home'))
     return render_template('login.html', title='Login', form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run()
