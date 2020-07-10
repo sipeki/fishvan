@@ -36,19 +36,30 @@ class RegistrationForm(FlaskForm):
                 validators = [
                 DataRequired(),
                 Email()
-                ]
+                ])
+    address = StringField('Address',
+                validators=[
+                DataRequired(),
+                Length(min=1, max=150)
+                ])
+    mobile = IntegerField(
+        'Mobile Number',
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=99999999999)
+
+        ]
+
     )
     password = PasswordField('Password',
-        validators = [
-            DataRequired(),
-        ]
-    )
+                validators = [
+                DataRequired()
+                ])
     confirm_password = PasswordField('Confirm Password',
-        validators = [
-            DataRequired(),
-            EqualTo('password')
-        ]
-    )
+                validators = [
+                DataRequired(),
+                EqualTo('password')
+                ])
     submit = SubmitField('Sign Up')
 
 
@@ -63,12 +74,6 @@ class OrdersForm(FlaskForm):
 
     )
 
-
-    order_date = DateField(
-        'Order Date',
-        default=date.today
-    )
-
     quantity = IntegerField(
         'Quantity (max 99)',
         validators=[
@@ -79,14 +84,5 @@ class OrdersForm(FlaskForm):
 
     )
 
-    status = IntegerField(
-        'Status (0 to 4)',
-        validators=[
-            DataRequired(),
-            NumberRange(min=0, max=4)
-
-        ]
-
-    )
     submit = SubmitField('Place a order')
 

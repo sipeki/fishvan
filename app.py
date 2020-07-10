@@ -48,19 +48,19 @@ class Users(db.Model, UserMixin):
 
 
 
-def __repr__(self):
+    def __repr__(self):
         return ''.join(['UserID: ', str(self.id), '\r\n',
                         'Name: ', self.f_name, ' ', self.l_name, '\r\n',
                         'Email: ', self.email, ' ', self.mobile, '\r\n',
-                        'Address: ', self.address, 'r\n',
+                        'Address: ', self.address, ' ', 'Mobile: ', self.mobile
 
         ])
 
 class Stock(db.Model):
     stock_id = db.Column(db.Integer, primary_key=True)
     detail = db.Column(db.String(50), nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-
+    price = db.Column(db.Float, nullable=False)
+    orders = db.relationship('Orderline', backref='orderid', lazy=True)
 
     def __repr__(self):
         return ''.join(
@@ -74,9 +74,9 @@ class Orderline(db.Model):
     order_id = db.Column(db.Integer, primary_key=True)
     order_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     quantity = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.Integer, nullable=False)
-    fk_stock_id = db.relationship('stock', backref='stock_id', lazy=True)
-    fk_user_id = db.relationship('users', backref='id', lazy=True)
+    status = db.Column(db.Integer, nullable=False, default=1)
+    fk_stock_id = db.Column(db.Integer, db.ForeignKey('stock.stock_id'), nullable=False)
+
 
 
     def __repr__(self):
@@ -103,22 +103,20 @@ def about():
     return render_template('about.html', title="About Us")
 
 @app.route('/orders')
-@login_required
+# @login_required
 def orders():
     order_data = Orderline.query.all()
     return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order_data)
 
 
 @app.route('/placeorder', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def placeorder():
     form = OrdersForm()
     if form.validate_on_submit():
         order_data = Orderline(
             fk_stock_id=form.fk_stock_id.data,
-            order_date=form.order_date.data,
-            quantity=form.quantity.data,
-            status=form.status.data,
+            quantity=form.quantity.data
         )
         db.session.add(order_data)
         db.session.commit()
@@ -128,6 +126,10 @@ def placeorder():
 
 @app.route('/create')
 def create():
+    post = Stock(stock_id=1, detail="Haddock", price=1.2)
+    post2 = Stock(stock_id=2, detail="Salmon", price=4.25)
+    db.session.add(post)
+    db.session.add(post2)
     db.create_all()
     db.session.commit()
     return "Some tables created"
@@ -144,8 +146,13 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hash_pw = bcrypt.generate_password_hash(form.password.data)
-
-        user = Users(email=form.email.data, password=hash_pw)
+        user = Users(
+            f_name=form.f_name.data,
+            l_name=form.l_name.data,
+            email=form.email.data,
+            address=form.address,
+            mobile=form.mobile,
+            password=hash_pw)
 
         db.session.add(user)
         db.session.commit()

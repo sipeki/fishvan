@@ -15,39 +15,19 @@
                 </div>
             {%  endif %}
         </div>
-
-        <br>
-        {{ form.order_date.label }}
-        {{ form.order_date}}
-         {% if form.order_date.errors %}
-                <div class="error">
-                    {%  for error in form.order_date.errors %}
-                        <span>{{  error }}</span>
-                    {%  endfor %}
-                </div>
-            {%  endif %}
-        <br>
-
-        {{ form.quantity.label }}
-        {{ form.quantity }}
-         {% if form.quantity.errors %}
+         <div class="form-group">
+            {{ form.quantity.label }}
+            {{ form.quantity }}
+            {% if form.quantity.errors %}
                 <div class="error">
                     {%  for error in form.quantity.errors %}
                         <span>{{  error }}</span>
                     {%  endfor %}
                 </div>
             {%  endif %}
-        <br>
-        {{ form.status.label }}
-        {{ form.status}}
-         {% if form.status.errors %}
-                <div class="error">
-                    {%  for error in form.status.errors %}
-                        <span>{{  error }}</span>
-                    {%  endfor %}
-                </div>
-            {%  endif %}
-        <br>
+        </div>
+
+
 
         <div class="form-group">
             {{ form.submit}}
