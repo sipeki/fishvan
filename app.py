@@ -45,13 +45,15 @@ class Users(db.Model, UserMixin):
     address = db.Column(db.String(150), nullable=False)
     mobile = db.Column(db.Integer, nullable=False)
     password = db.Column(db.String(500), nullable=False)
-    orders = db.relationship('Orderline', backref='order', lazy=True)
+
 
 
 def __repr__(self):
         return ''.join(['UserID: ', str(self.id), '\r\n',
-                        'Email: ', self.email, '\r\n',
-                        'Name: ', self.f_name, ' ', self.l_name
+                        'Name: ', self.f_name, ' ', self.l_name, '\r\n',
+                        'Email: ', self.email, ' ', self.mobile, '\r\n',
+                        'Address: ', self.address, 'r\n',
+
         ])
 
 class Stock(db.Model):
@@ -73,17 +75,20 @@ class Orderline(db.Model):
     order_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     quantity = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
-    fk_user_id = db.relationship('users', backref='id', lazy=True)
     fk_stock_id = db.relationship('stock', backref='stock_id', lazy=True)
+    fk_user_id = db.relationship('users', backref='id', lazy=True)
+
 
     def __repr__(self):
         return ''.join(
             [
-                'User ID: ', self.fk_user_iduser_id, '\r\n',
-                'Stock ID: ', self.fk_stock_iduser_id, '\r\n',
-                'Order ID:  ' + self.order_id + ' FK Stock ID:  ' + self.fk_stock_id + ' Order Date ' + self.order_date +
-                ' Quantity ' + self.quantity + ' Status ' + self.status + '\n'
-            ]
+                'Order ID:  ' + self.order_id, '\r\n',
+                'Order Date ' + self.order_date, '\r\n',
+                'Quantity ' + self.quantity, '\r\n',
+                'Status ' + self.status, '\r\n',
+                'FK Stock ID: ', self.fk_stock_id, '\r\n',
+                'FK User ID: ', self.fk_user_id, '\r\n'
+                ]
         )
 
 
