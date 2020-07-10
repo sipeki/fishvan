@@ -3,6 +3,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, IntegerField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
+
+
 class LoginForm(FlaskForm):
     email = StringField('Email',
         validators=[
@@ -85,4 +87,5 @@ class OrdersForm(FlaskForm):
     )
 
     submit = SubmitField('Place a order')
+
 
