@@ -105,8 +105,8 @@ def about():
 @app.route('/orders')
 # @login_required
 def orders():
-    order_data = Orderline.query.all()
-    return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order_data)
+    order = Orderline.query.all()
+    return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order)
 
 
 @app.route('/placeorder', methods=['GET', 'POST'])
@@ -163,7 +163,7 @@ def register():
 @app.route('/updateorder', methods=['GET', 'POST'])
 # @login_required
 def updateorder():
-    order_data = Orderline.query.all()
+    order = Orderline.query.all()
     # order = Orderline.query.first()
     form = UpdateOrderForm()
     if form.validate_on_submit():
@@ -172,9 +172,7 @@ def updateorder():
         db.session.commit()
         return redirect(url_for('updateorder'))
     elif request.method == 'GET':
-        form.fk_stock_id.data = order.fk_stock_id
-        form.quantity.data = order.quantity
-    return render_template('updateorder.html', title='Update Order', form=form)
+        return render_template('updateorder.html', title='Update Order', fishvan=order)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
