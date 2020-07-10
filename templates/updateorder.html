@@ -3,19 +3,22 @@
 {%  block body_content %}
     <div class="form">
     <form method="post" action="">
-        {{  form.hidden_tag() }}
 
-         <div>
-                <h3>{{  order.order_id }}</h3>
-                <p><b>FK Stock ID: </b>{{  order.fk_stock_id }}</p>
-                <b>Item: </b><i>{{ order.orderid.detail }}</i>
-                <b>Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{  order.quantity*order.orderid.price }} </i>
-                <p><b>Order Date: </b>{{  order.order_date }}</p>
-                <p><b>Status: </b>{{  order.status }}</p>
-            </div>
 
+         <h1>Current Orders</h1>
+
+              {%  for order in fishvan %}
+                    <div>
+                        <h3>{{  order.order_id }}</h3>
+                           <p><b>FK Stock ID: </b>{{  order.fk_stock_id }}</p>
+                            <b>Item: </b><i>{{ order.orderid.detail }}</i>
+                            <b>Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{  order.quantity*order.orderid.price }} </i>
+                            <p><b>Order Date: </b>{{  order.order_date }}</p>
+                            <p><b>Status: </b>{{  order.status }}</p>
+                    </div>
+             {%  endfor %}
         <div class="form-group">
-            {{ form.submit}}
+            {{ order.submit}}
         </div>
         <br>
         <br>
