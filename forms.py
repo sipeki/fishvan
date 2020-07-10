@@ -88,4 +88,27 @@ class OrdersForm(FlaskForm):
 
     submit = SubmitField('Place a order')
 
+class UpdateOrderForm(FlaskForm):
+    fk_stock_id = IntegerField(
+        'FK Stock ID (max 9999)',
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=9999)
+
+        ]
+
+    )
+
+    quantity = IntegerField(
+        'Quantity (max 99)',
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=99)
+
+        ]
+
+    )
+
+    submit = SubmitField('Update')
+
 

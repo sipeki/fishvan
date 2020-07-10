@@ -160,6 +160,20 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/updateorder', methods=['GET', 'POST'])
+# @login_required
+def updateorder():
+    order = Orderline.query.first()
+    form = UpdateOrderForm()
+    if form.validate_on_submit():
+        order.fk_stock_id = form.fk_stock_id.data
+        order.quantity = form.quantity.data
+        db.session.commit()
+        return redirect(url_for('updateorder'))
+    elif request.method == 'GET':
+        form.fk_stock_id.data = order.fk_stock_id
+        form.last_name.data = order.quantity
+    return render_template('updateorder.html', title='Update Order', form=form)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
@@ -168,7 +182,7 @@ def login():
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user=Users.query.filter_by(email=form.email.data).first()
+        user = Users.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
