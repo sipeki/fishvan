@@ -159,10 +159,24 @@ def register():
 
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
-
 @app.route('/updateorder', methods=['GET', 'POST'])
 # @login_required
 def updateorder():
+    order = Orderline.query.first()
+    form = UpdateOrderForm()
+    if form.validate_on_submit():
+        order.fk_stock_id = form.fk_stock_id.data
+        order.quantity = form.quantity.data
+        db.session.commit()
+        return redirect(url_for('updateorder'))
+    elif request.method == 'GET':
+        form.fk_stock_id.data = order.fk_stock_id
+        form.quantity.data = order.quantity
+    return render_template('updateorder.html', title='Update Order', form=form)
+
+@app.route('/updateorders', methods=['GET', 'POST'])
+# @login_required
+def updateorders():
     order = Orderline.query.all()
     #order = Orderline.query.first()
     form = UpdateOrderForm()
