@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_bcrypt import Bcrypt
-from forms import OrdersForm, RegistrationForm, LoginForm
+from forms import OrdersForm, RegistrationForm, LoginForm, UpdateOrderForm
 from flask_login import LoginManager
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 from datetime import datetime
@@ -172,7 +172,7 @@ def updateorder():
         return redirect(url_for('updateorder'))
     elif request.method == 'GET':
         form.fk_stock_id.data = order.fk_stock_id
-        form.last_name.data = order.quantity
+        form.quantity.data = order.quantity
     return render_template('updateorder.html', title='Update Order', form=form)
 
 @app.route('/', methods=['GET', 'POST'])
