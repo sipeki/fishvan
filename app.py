@@ -164,15 +164,15 @@ def register():
 # @login_required
 def updateorder():
     order = Orderline.query.all()
-    # order = Orderline.query.first()
+    #order = Orderline.query.first()
     form = UpdateOrderForm()
     if form.validate_on_submit():
         order.fk_stock_id = form.fk_stock_id.data
         order.quantity = form.quantity.data
         db.session.commit()
         return redirect(url_for('updateorder'))
-    elif request.method == 'GET':
-        return render_template('updateorder.html', title='Update Order', fishvan=order)
+    else:
+        return render_template('updateorders.html', title="FISH VAN - Update Orders", fishvan=order)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
