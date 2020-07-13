@@ -105,8 +105,8 @@ def about():
 @app.route('/orders')
 # @login_required
 def orders():
-    order_data = Orderline.query.all()
-    return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order_data)
+    order = Orderline.query.all()
+    return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order)
 
 
 @app.route('/placeorder', methods=['GET', 'POST'])
@@ -159,7 +159,6 @@ def register():
 
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
-
 @app.route('/updateorder', methods=['GET', 'POST'])
 # @login_required
 def updateorder():
@@ -174,6 +173,23 @@ def updateorder():
         form.fk_stock_id.data = order.fk_stock_id
         form.quantity.data = order.quantity
     return render_template('updateorder.html', title='Update Order', form=form)
+
+
+
+@app.route('/updateorders', methods=['GET', 'POST'])
+# @login_required
+def updateorders():
+    #order = Orderline.query.all()
+    orders = Orderline.query.all()
+    form = UpdateOrderForm()
+    if form.validate_on_submit():
+        orders.fk_stock_id = form.fk_stock_id.data
+        orders.quantity = form.quantity.data
+        db.session.commit()
+        return redirect(url_for('updateorder'))
+    else:
+        orders = Orderline.query.all()
+        return render_template('updateorders.html', title="FISH VAN - Update Orders", fishvan=orders, form=form)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
