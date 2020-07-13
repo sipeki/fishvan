@@ -6,20 +6,37 @@
 
 
          <h1>Current Orders</h1>
+            {% for order in fishvan %}
+                    {% form.fk_stock_id.data = order.fk_stock_id %}
+                    {% form.quantity.data = order.quantity %}
+                {{  form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.fk_stock_id.label }}
+                    {{ form.fk_stock_id }}
+                    {% if form.fk_stock_id.errors %}
+                        <div class="error">
+                            {%  for error in form.fk_stock_id.errors %}
+                                <span>{{  error }}</span>
+                            {%  endfor %}
+                        </div>
+                    {%  endif %}
+                </div>
 
-          {% for order in fishvan %}
-                <div>
-                <h3>{{  order.order_id }}</h3>
-                <p><b>FK Stock ID: </b>{{  order.fk_stock_id }}</p>
-                <b>Item: </b><i>{{ order.orderid.detail }}</i>
-                <b>Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{  order.quantity*order.orderid.price }} </i>
-                <p><b>Order Date: </b>{{  order.order_date }}</p>
-                <p><b>Status: </b>{{  order.status }}</p>
-            </div>
-        {%  endfor %}
+                <div class="form-group">
+                    {{ form.quantity.label }}
+                    {{ form.quantity }}
+                    {% if form.quantity.errors %}
+                        <div class="error">
+                            {%  for error in form.quantity.errors %}
+                                <span>{{  error }}</span>
+                            {%  endfor %}
+                        </div>
+                    {%  endif %}
+                </div>
+            {%  endfor %}
 
         <div class="form-group">
-            {{ order.submit}}
+            {{ form.submit}}
         </div>
         <br>
         <br>
