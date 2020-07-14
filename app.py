@@ -16,7 +16,6 @@ login_manager.login_view = 'login'
 # make more secure
 app.config['SECRET_KEY'] = 'c076a09b61f56e9338a7c7d97244d5b0'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:CODeb9aGb0hrm9eN@35.189.67.84:3306/posts'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + \
                                         environ.get('MYSQL_USER') + \
