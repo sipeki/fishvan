@@ -4,7 +4,6 @@ from wtforms import StringField, SubmitField, PasswordField, BooleanField, Integ
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
 
-
 class LoginForm(FlaskForm):
     email = StringField('Email',
         validators=[
@@ -87,6 +86,7 @@ class OrdersForm(FlaskForm):
     )
 
     submit = SubmitField('Place a order')
+
 
 class UpdateOrderForm(FlaskForm):
     fk_stock_id = IntegerField(
