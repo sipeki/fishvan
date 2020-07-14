@@ -114,17 +114,10 @@ def orders_delete():
 
     return redirect(url_for('home'))
 
-@app.route('/orders/delete')
-# @login_required
-def orders_delete():
-    db.session.query(Orderline).delete()
-    db.session.commit()
 
-    return redirect(url_for('home'))
-
-@app.route('/deleteorder/<int:delete>', methods=["GET", "POST", "DELETE"])
+@app.route('/deleteaorder/<int:delete>', methods=["GET", "POST", "DELETE"])
 # @login_required
-def deleteorder(delete):
+def deleteaorder(delete):
     orderdelete = Orderline.__table__.delete().where(Orderline.order_id == delete)
     db.session.execute(orderdelete)
     db.session.commit()
