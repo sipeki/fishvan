@@ -186,14 +186,17 @@ def updateorder():
 # @login_required
 def updateorders():
     #order = Orderline.query.all()
-    orders = Orderline.query.all()
-    form = UpdateOrderForm()
+    form = UpdateOrdersForm()
+    orders = Orderline.query.filter_by(order_id=update).first()
     if form.validate_on_submit():
         orders.fk_stock_id = form.fk_stock_id.data
         orders.quantity = form.quantity.data
         db.session.commit()
-        return redirect(url_for('updateorder'))
-    else:
+        return redirect(url_for('orders'))
+    elif request.method == 'GET':
+        form.fk_stock_id = orders.fk_stock_id
+        form.quantity.data = orders.quantity
+        form.quantity
         orders = Orderline.query.all()
         return render_template('updateorders.html', title="FISH VAN - Update Orders", fishvan=orders, form=form)
 

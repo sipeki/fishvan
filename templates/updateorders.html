@@ -7,32 +7,22 @@
 
          <h1>Current Orders</h1>
             {% for order in fishvan %}
-                    {% form.fk_stock_id.data = order.fk_stock_id %}
-                    {% form.quantity.data = order.quantity %}
-                {{  form.hidden_tag() }}
-                <div class="form-group">
-                    {{ form.fk_stock_id.label }}
-                    {{ form.fk_stock_id }}
-                    {% if form.fk_stock_id.errors %}
-                        <div class="error">
-                            {%  for error in form.fk_stock_id.errors %}
-                                <span>{{  error }}</span>
-                            {%  endfor %}
-                        </div>
-                    {%  endif %}
-                </div>
+                <h3>Order ID: order.order_id</h3>
+                <p><b>Stock ID: </b> {{ order.fk_stock_id }}</p>
+                <p><b>Order Quantity: </b>  {{  order.quantity }}</p>
+                <td>
+                    <tr>
+                        <form action="{{  url_for('updateorders', update=order.order_id) }}">
+                            <button type="submit">Update</button>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form action="{{  url_for('deleteorder', delete=order.order_id) }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </tr>
+                </td>
 
-                <div class="form-group">
-                    {{ form.quantity.label }}
-                    {{ form.quantity }}
-                    {% if form.quantity.errors %}
-                        <div class="error">
-                            {%  for error in form.quantity.errors %}
-                                <span>{{  error }}</span>
-                            {%  endfor %}
-                        </div>
-                    {%  endif %}
-                </div>
             {%  endfor %}
 
         <div class="form-group">
