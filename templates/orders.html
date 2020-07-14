@@ -4,7 +4,7 @@
         <h1>Current Orders</h1>
 
          {%  for order in fishvan %}
-            <div>
+            <div class='form_group'>
                 <h3>{{  order.order_id }}</h3>
                 <p><b>FK Stock ID: </b>{{  order.fk_stock_id }}</p>
                 <b>Item: </b><i>{{ order.orderid.detail }}</i>
@@ -12,6 +12,12 @@
                 <p><b>Order Date: </b>{{  order.order_date }}</p>
                 <p><b>Status: </b>{{  order.status }}</p>
             </div>
-
         {%  endfor %}
+
+        <div class='form_group'>
+            <form action="{{ url_for('account_delete') }}">
+                <button type="submit">Delete Orders</button>
+            </form>
+        </div>
+
     {%  endblock %}
