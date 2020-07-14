@@ -109,11 +109,10 @@ def orders():
 @app.route('/orders/delete')
 # @login_required
 def orders_delete():
-    theorders = Orderline.query.all()
-    db.session.delete(theorders)
+    db.session.query(Orderline).delete()
     db.session.commit()
 
-    return redirect(url_for('placeorder'))
+    return redirect(url_for('home'))
 
 
 @app.route('/placeorder', methods=['GET', 'POST'])
