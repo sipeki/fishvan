@@ -126,7 +126,7 @@ def placeorder():
         )
         db.session.add(order_data)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('orders'))
     else:
         return render_template('placeorder.html', title='Place Order', form=form)
 

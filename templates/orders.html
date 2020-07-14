@@ -5,12 +5,10 @@
 
          {%  for order in fishvan %}
             <div class='form_group'>
-                <h3>{{  order.order_id }}</h3>
-                <p><b>FK Stock ID: </b>{{  order.fk_stock_id }}</p>
+                <h3> <b>Order: </b> {{  order.order_id }}</h3>
                 <b>Item: </b><i>{{ order.orderid.detail }}</i>
-                <b>Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{  order.quantity*order.orderid.price }} </i>
-                <p><b>Order Date: </b>{{  order.order_date }}</p>
-                <p><b>Status: </b>{{  order.status }}</p>
+                <b>Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{ order.quantity*order.orderid.price }} </i>
+                <p><b>Order Date: </b>{{  order.order_date }} <b>Status: </b>{{  order.status }} </p>
             </div>
         {%  endfor %}
 
