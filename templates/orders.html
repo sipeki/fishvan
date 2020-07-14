@@ -14,5 +14,10 @@
             </div>
         {%  endfor %}
 
+        <div class='form_group'>
+            <form action="{{ url_for('orders_delete') }}">
+                <button type="submit">Delete Orders</button>
+            </form>
+        </div>
 
     {%  endblock %}

@@ -106,6 +106,15 @@ def orders():
     order = Orderline.query.all()
     return render_template('orders.html', title="FISH VAN - List Orders", fishvan=order)
 
+@app.route('/orders/delete')
+# @login_required
+def orders_delete():
+    theorders = Orderline.query.all()
+    db.session.delete(theorders)
+    db.session.commit()
+
+    return redirect(url_for('placeorder'))
+
 
 @app.route('/placeorder', methods=['GET', 'POST'])
 # @login_required
