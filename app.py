@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_bcrypt import Bcrypt
-from forms import OrdersForm, RegistrationForm, LoginForm, UpdateOrderForm
+from forms import OrdersForm, RegistrationForm, LoginForm, UpdateOrdersForm
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 from datetime import datetime
 
@@ -142,10 +142,12 @@ def placeorder():
 
 @app.route('/create')
 def create():
-    post = Stock(stock_id=1, detail="Haddock", price=1.2)
+    post = Stock(stock_id=1, detail="Haddock", price=1.20)
     post2 = Stock(stock_id=2, detail="Salmon", price=4.25)
+    post3 = Stock(stock_id=3, detail="Fishcakes", price=1.75)
     db.session.add(post)
     db.session.add(post2)
+    db.session.add(post3)
     db.create_all()
     db.session.commit()
     return "Some tables created"
@@ -175,6 +177,8 @@ def register():
 
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
+
+
 @app.route('/updateorder', methods=['GET', 'POST'])
 # @login_required
 def updateorder():
@@ -194,7 +198,7 @@ def updateorder():
 
 @app.route('/updateorders', methods=['GET', 'POST'])
 # @login_required
-def updateorders():
+def updateorders(update):
     #order = Orderline.query.all()
     form = UpdateOrdersForm()
     orders = Orderline.query.filter_by(order_id=update).first()
