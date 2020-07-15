@@ -66,7 +66,7 @@ class RegistrationForm(FlaskForm):
 
 class OrdersForm(FlaskForm):
     fk_stock_id = IntegerField(
-        'FK Stock ID (max: 9999)',
+        'FK Stock ID (Maximum 9999)',
         validators=[
             DataRequired(),
             NumberRange(min=1, max=9999)
@@ -76,7 +76,7 @@ class OrdersForm(FlaskForm):
     )
 
     quantity = IntegerField(
-        'Quantity (max: 99)',
+        'Quantity (Maximum: 99)',
         validators=[
             DataRequired(),
             NumberRange(min=1, max=99)
