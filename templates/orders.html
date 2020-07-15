@@ -6,15 +6,34 @@
          {%  for order in fishvan %}
             <div class='form_group'>
                 <h3> <b>Order: </b> {{  order.order_id }}</h3>
-                <b>Item: </b><i>{{ order.orderid.detail }}</i>
-                <b>Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{ order.quantity*order.orderid.price }} </i>
-                <p><b>Order Date: </b>{{  order.order_date }} <b>Status: </b>{{  order.status }} </p>
+                <table>
+                    <tr>
+                        <b>Item: </b><i>{{ order.orderid.detail }}</i>
+                        <b> Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{ order.quantity*order.orderid.price }} </i>
+                        <b>Order Date: </b>{{  order.order_date }} <b>Status: </b>{{  order.status }}
+                    </tr>
+
+                    <tr>
+                        <form action="{{  url_for('updateorder', update = order.order_id) }}">
+                            <button type="submit">Update</button>&emsp;
+                        </form>
+                    </tr>
+
+                    <tr>
+                        <form action="{{  url_for('deleteaorder', delete = order.order_id) }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </tr>
+                </table>
+
+
+
             </div>
         {%  endfor %}
-
+        <p></p>
         <div class='form_group'>
             <form action="{{ url_for('orders_delete') }}">
-                <button type="submit">Delete Orders</button>
+                <button type="submit">Delete All Orders</button>
             </form>
         </div>
 

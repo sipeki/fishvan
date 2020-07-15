@@ -90,7 +90,7 @@ class Orderline(db.Model):
         )
 
 
-
+@app.route('/')
 @app.route('/home')
 def home():
 
@@ -115,6 +115,16 @@ def orders_delete():
     return redirect(url_for('home'))
 
 
+@app.route('/deleteaorder/<int:delete>', methods=["GET", "POST", "DELETE"])
+# @login_required
+def deleteaorder(delete):
+    orderdelete = Orderline.__table__.delete().where(Orderline.order_id == delete)
+    db.session.execute(orderdelete)
+    db.session.commit()
+
+    return redirect(url_for('orders'))
+
+
 @app.route('/placeorder', methods=['GET', 'POST'])
 # @login_required
 def placeorder():
@@ -132,10 +142,12 @@ def placeorder():
 
 @app.route('/create')
 def create():
-    post = Stock(stock_id=1, detail="Haddock", price=1.2)
+    post = Stock(stock_id=1, detail="Haddock", price=1.20)
     post2 = Stock(stock_id=2, detail="Salmon", price=4.25)
+    post3 = Stock(stock_id=3, detail="Fishcakes", price=1.75)
     db.session.add(post)
     db.session.add(post2)
+    db.session.add(post3)
     db.create_all()
     db.session.commit()
     return "Some tables created"
@@ -165,16 +177,19 @@ def register():
 
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
-@app.route('/updateorder', methods=['GET', 'POST'])
+
+
+@app.route('/updateorder/<int:update>', methods=['GET', 'POST'])
 # @login_required
-def updateorder():
-    order = Orderline.query.first()
+def updateorder(update):
+    print(update)
+    order = Orderline.query.filter_by(order_id=update).first()
     form = UpdateOrderForm()
     if form.validate_on_submit():
         order.fk_stock_id = form.fk_stock_id.data
         order.quantity = form.quantity.data
         db.session.commit()
-        return redirect(url_for('updateorder'))
+        return redirect(url_for('orders'))
     elif request.method == 'GET':
         form.fk_stock_id.data = order.fk_stock_id
         form.quantity.data = order.quantity
@@ -182,22 +197,6 @@ def updateorder():
 
 
 
-@app.route('/updateorders', methods=['GET', 'POST'])
-# @login_required
-def updateorders():
-    #order = Orderline.query.all()
-    orders = Orderline.query.all()
-    form = UpdateOrderForm()
-    if form.validate_on_submit():
-        orders.fk_stock_id = form.fk_stock_id.data
-        orders.quantity = form.quantity.data
-        db.session.commit()
-        return redirect(url_for('updateorder'))
-    else:
-        orders = Orderline.query.all()
-        return render_template('updateorders.html', title="FISH VAN - Update Orders", fishvan=orders, form=form)
-
-@app.route('/', methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
