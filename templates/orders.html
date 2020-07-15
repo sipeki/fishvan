@@ -9,6 +9,19 @@
                 <b>Item: </b><i>{{ order.orderid.detail }}</i>
                 <b>Quantity: </b>  <i>{{  order.quantity }} </i><b>Price: </b>  <i>{{ order.quantity*order.orderid.price }} </i>
                 <p><b>Order Date: </b>{{  order.order_date }} <b>Status: </b>{{  order.status }} </p>
+                <td>
+                    <tr>
+                        <form action="{{  url_for('updateorder', update = order.order_id) }}">
+                            <button type="submit">Update</button>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form action="{{  url_for('deleteaorder', delete = order.order_id) }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </tr>
+                </td>
+
             </div>
         {%  endfor %}
 

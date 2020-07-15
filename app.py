@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_bcrypt import Bcrypt
-from forms import OrdersForm, RegistrationForm, LoginForm, UpdateOrdersForm
+from forms import OrdersForm, RegistrationForm, LoginForm, UpdateOrderForm
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required, UserMixin
 from datetime import datetime
 
@@ -90,7 +90,7 @@ class Orderline(db.Model):
         )
 
 
-
+@app.route('/')
 @app.route('/home')
 def home():
 
@@ -122,7 +122,7 @@ def deleteaorder(delete):
     db.session.execute(orderdelete)
     db.session.commit()
 
-    return redirect(url_for('updateorders'))
+    return redirect(url_for('orders'))
 
 
 @app.route('/placeorder', methods=['GET', 'POST'])
@@ -179,16 +179,17 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/updateorder', methods=['GET', 'POST'])
+@app.route('/updateorder/<int:update>', methods=['GET', 'POST'])
 # @login_required
-def updateorder():
-    order = Orderline.query.first()
+def updateorder(update):
+    print(update)
+    order = Orderline.query.filter_by(order_id=update).first()
     form = UpdateOrderForm()
     if form.validate_on_submit():
         order.fk_stock_id = form.fk_stock_id.data
         order.quantity = form.quantity.data
         db.session.commit()
-        return redirect(url_for('updateorder'))
+        return redirect(url_for('orders'))
     elif request.method == 'GET':
         form.fk_stock_id.data = order.fk_stock_id
         form.quantity.data = order.quantity
@@ -196,25 +197,6 @@ def updateorder():
 
 
 
-@app.route('/updateorders', methods=['GET', 'POST'])
-# @login_required
-def updateorders(update):
-    #order = Orderline.query.all()
-    form = UpdateOrdersForm()
-    orders = Orderline.query.filter_by(order_id=update).first()
-    if form.validate_on_submit():
-        orders.fk_stock_id = form.fk_stock_id.data
-        orders.quantity = form.quantity.data
-        db.session.commit()
-        return redirect(url_for('orders'))
-    elif request.method == 'GET':
-        form.fk_stock_id = orders.fk_stock_id
-        form.quantity.data = orders.quantity
-        form.quantity
-        orders = Orderline.query.all()
-        return render_template('updateorders.html', title="FISH VAN - Update Orders", fishvan=orders, form=form)
-
-@app.route('/', methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
