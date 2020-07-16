@@ -6,7 +6,7 @@ created project on the 6th of July 2020
 ####DevOps and Cloud Consultant
 ####QA
 
-Introduction: In the next 20 minutes you will be taken through my project for DevOps Core Fundamentals. Demonstrating the technologies learnt in the last 5 weeks by deploying a CRUD web application.
+>Introduction: In the next 20 minutes you will be taken through my project for DevOps Core Fundamentals. Demonstrating the technologies learnt in the last 5 weeks by deploying a CRUD web application.
 
 #Content
 
@@ -48,10 +48,11 @@ Introduction: In the next 20 minutes you will be taken through my project for De
 
 ##Brief
 
-The purpose of this project is to demonstrate our understanding of the technologies and methods covered in the initial 5 weeks of the Academy by applying those technologies and methods in developing a CRUD application and project management of the development process.
+>The purpose of this project is to demonstrate our understanding of the technologies and methods covered in the initial 5 weeks of the Academy by applying those technologies and methods in developing a CRUD application and project management of the software life cycle.
 
 ###Resources
 Project Management Trello: https://trello.com/b/v1pyqQxJ/fishvan
+
 Fishvan Github: https://github.com/sipeki/fishvan.git
 
 
@@ -59,9 +60,9 @@ Fishvan Github: https://github.com/sipeki/fishvan.git
 * Trello board
 * Relation Database, 2 tables joined
 * Documentation
-*Functional CRUD
-*Functional website with Flask API
-*Version Control System Feature Branch integrated into CI and Cloud VM
+* Functional CRUD
+* Functional website with Flask API
+* Version Control System Feature Branch integrated into CI and Cloud VM
 
 
 
@@ -69,6 +70,7 @@ Fishvan Github: https://github.com/sipeki/fishvan.git
 <picture of paul and van>
 
 Website for customers to place orders with the local mobile fishmonger. Reducing wait times for customers.
+
 The project was inspired by a conversation with fishmonger Paul whose business is to drive around the local villages for customers to come to the van to plaice orders at the van and take home then there. Due to the increase in customers he was getting later and later, special during lock down, 3 hours late! I collected my fish at 9:30pm last Tuesday.  The benefit to Paul and his loyal customers was that the website would enable Paul’s customers to order at their convenience in advance to Paul’s visit. Orders could then be prepared in advance for collection from the van.
  
 <picture of pittenweem>
@@ -91,7 +93,12 @@ Scrum Framework. Product Backlog listing all the desired features as user storie
 Morning stand ups were held with development team members. To review yesterday and the day ahead and report any blockers. Each taking weekly turns at Scrum Master reporting back to the overall PM. The stand ups were very beneficial and enabled the transfer of knowledge and focus.  
 
 ####MoSCoW
-MoSCoW prioritisation technique used to define the Epic’s. Must - Epic Sprint, Should - Epic Sprint, Could - Epic Sprint and Won’t - Epic Sprint 
+MoSCoW prioritisation technique used to define the Epic’s. 
+
+* Must - Epic Sprint 
+* Should - Epic Sprint 
+* Could - Epic Sprint
+* Won’t - Epic Sprint 
   
 
 ## Design
@@ -100,15 +107,15 @@ Orders placed with stock code. Orders listed with details of the order; item ord
  
 ###Functionality
 The user stories that satisfied the brief:
-* Must - Epic Sprint
-* Create - Add Order
-		As any user I want to create an order line. So I can place a order. 
-Read - List Orders
-As any user I want to list order lines. So I can list all orders on the system and know the orders placed.
-**Update - Modify Order
-***As any user I want to update the order line. So I can modify the order.
-**Delete - Remove Order
-***As any user I want to delete an order. So I can remove an order from the system.
+* **_Must - Epic Sprint_**
+  * **Create - Add Order**
+    * _As any user I want to create an order line. So I can place a order._ 
+  * **Read - List Orders**
+    * _As any user I want to list order lines. So I can list all orders on the system and know the orders placed._
+  * **Update - Modify Order**
+    * _As any user I want to update the order line. So I can modify the order._
+  * **Delete - Remove Order**
+    * _As any user I want to delete an order. So I can remove an order from the system._
 
 ###Wireframe
 The wireframes were kept high level and abstract. Which helped me conceptualise the data as well as how the data would be presented on the browser.
@@ -136,6 +143,483 @@ The application is data driven which makes it important to get the relationship 
 
 ####Basic CRUD Van App - Orders List
 The relation shown here is that a stock item will appear in many order lines.
+# Basic CRUD Van App - Orders List
+
+
+<table>
+  <tr>
+   <td colspan="2" ><strong>Stock </strong>
+   </td>
+   <td>
+   </td>
+   <td colspan="2" ><strong>Order Line</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>stock_id
+   </td>
+   <td>Int (auto Prime not null
+   </td>
+   <td>1..x--->
+   </td>
+   <td>order_id 
+   </td>
+   <td>Int (auto Prime Required)
+   </td>
+  </tr>
+  <tr>
+   <td>detail
+   </td>
+   <td>varchar(50) not null
+   </td>
+   <td>
+   </td>
+   <td>fk_stock_id
+   </td>
+   <td>Int (foreign)
+   </td>
+  </tr>
+  <tr>
+   <td>price
+   </td>
+   <td>Decimal not null
+   </td>
+   <td>
+   </td>
+   <td>order_date
+   </td>
+   <td>date
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>quantity
+   </td>
+   <td>int
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>status
+   </td>
+   <td>int
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+  </tr>
+</table>
+
+
+**Stock table**
+
+create table if not exists stock(
+
+stock_id int not null auto_increment,
+
+detail varchar(50) is not null,
+
+quantity int is not null,
+
+price decimal is not null,
+
+primary key(stock_id));
+
+**Order Line table **
+
+create table if not exists order_line(
+
+order_id int not null auto_increment,
+
+fk_stock_id int,
+
+order_date,
+
+quantity int,
+
+status int,
+
+primary key(order_id),
+
+foreign key fk_stock_id references stock(stock_id),
+
+foreign key fk_user_id references user(user_id));
+
+**Join for orders list**
+
+select u.f_name, u.f_name,  s.detail, ol.quantity, s.price*ol.quantity 
+
+from user u
+
+join stock s using(stock_id)
+
+Join order_line ol using(order_id));
+
+
+<table>
+  <tr>
+   <td>X
+   </td>
+   <td><strong>Orders</strong>
+   </td>
+   <td><strong>Stock</strong>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>Order_Line</strong>
+   </td>
+   <td>
+   </td>
+   <td>contain
+   </td>
+  </tr>
+  <tr>
+   <td><strong>Stock</strong>
+   </td>
+   <td>are part of
+   </td>
+   <td>
+   </td>
+  </tr>
+</table>
+
+
+
+
+
+# Should: Fish Van Application
+
+
+<table>
+  <tr>
+   <td colspan="2" ><strong>Stock </strong>
+   </td>
+   <td>
+   </td>
+   <td colspan="2" ><strong>Order Line</strong>
+   </td>
+   <td>
+   </td>
+   <td colspan="2" ><strong>User</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>stock_id
+   </td>
+   <td>Int (auto Prime not null
+   </td>
+   <td>1..x--->
+   </td>
+   <td>order_id 
+   </td>
+   <td>Int (auto Prime Required)
+   </td>
+   <td><p style="text-align: right">
+x..1--->     </p>
+
+   </td>
+   <td>user_id
+   </td>
+   <td>Int (auto Prime Required)
+   </td>
+  </tr>
+  <tr>
+   <td>detail
+   </td>
+   <td>varchar(50) not null
+   </td>
+   <td>
+   </td>
+   <td>fk_stock_id
+   </td>
+   <td>Int (foreign)
+   </td>
+   <td>
+   </td>
+   <td>user_type
+   </td>
+   <td>int not null
+   </td>
+  </tr>
+  <tr>
+   <td>quantity
+   </td>
+   <td>Int not null
+   </td>
+   <td>
+   </td>
+   <td>fk_user_id
+   </td>
+   <td>Int (foreign)
+   </td>
+   <td>
+   </td>
+   <td>user_name
+   </td>
+   <td>varchar(15) not null
+   </td>
+  </tr>
+  <tr>
+   <td>price
+   </td>
+   <td>Decimal not null
+   </td>
+   <td>
+   </td>
+   <td>order_date
+   </td>
+   <td>date
+   </td>
+   <td>
+   </td>
+   <td>f_name
+   </td>
+   <td>varchar(20) not null
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>quantity
+   </td>
+   <td>int
+   </td>
+   <td>
+   </td>
+   <td>l_name
+   </td>
+   <td>varchar(20) not null
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>status
+   </td>
+   <td>int
+   </td>
+   <td>
+   </td>
+   <td>address
+   </td>
+   <td>varchar(50) not null
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>email
+   </td>
+   <td>varchar(25) not null
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>mobile
+   </td>
+   <td>int not null
+   </td>
+  </tr>
+  <tr>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+   <td>
+   </td>
+  </tr>
+</table>
+
+
+
+
+
+<table>
+  <tr>
+   <td>X
+   </td>
+   <td><strong>User Customer (user_type =1)</strong>
+   </td>
+   <td><strong>Orders</strong>
+   </td>
+   <td><strong>Stock</strong>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>User Customer (user_type =1)</strong>
+   </td>
+   <td>
+   </td>
+   <td>make
+   </td>
+   <td>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>Order_Line</strong>
+   </td>
+   <td>are made by
+   </td>
+   <td>
+   </td>
+   <td>contain
+   </td>
+  </tr>
+  <tr>
+   <td><strong>Stock</strong>
+   </td>
+   <td>
+   </td>
+   <td>are part of
+   </td>
+   <td>
+   </td>
+  </tr>
+</table>
+
+
+**Stock table**
+
+create table if not exists stock(
+
+stock_id int not null auto_increment,
+
+detail varchar(50) is not null,
+
+quantity int is not null,
+
+price decimal is not null,
+
+primary key(stock_id));
+
+**Order Line table **
+
+create table if not exists order_line(
+
+order_id int not null auto_increment,
+
+fk_stock_id int,
+
+fk_user_id int,
+
+order_date,
+
+quantity int,
+
+status int,
+
+primary key(order_id),
+
+foreign key fk_stock_id references stock(stock_id),
+
+foreign key fk_user_id references user(user_id));
+
+**User table**
+
+create table if not exists user(
+
+user_id is not null auto_increment,
+
+user_type int not null default 1,
+
+f_name varchar(20) is not null,
+
+l_name varchar(20) is not null,
+
+Address varchar(50) is not null,
+
+email varchar(25) is not null,
+
+mobile int not null,
+
+primary key(user_id),
+
+unique(user_id));
+
+**Join for orders list**
+
+select u.f_name, u.f_name,  s.detail, ol.quantity, s.price*ol.quantity 
+
+from user u
+
+join stock s using(stock_id)
+
+Join order_line ol using(order_id));
+
+ 
+
+
+# 
 
 X
 Orders
