@@ -1,6 +1,7 @@
 {%extends "layout.html" %}
 
 {%  block body_content %}
+    <h1>Plaice Your Order</h1>
     <div class="form">
     <form method="post" action="">
         {{  form.hidden_tag() }}
@@ -15,6 +16,7 @@
                 </div>
             {%  endif %}
         </div>
+    <p></p>
          <div class="form-group">
             {{ form.quantity.label }}
             {{ form.quantity }}
@@ -27,7 +29,7 @@
             {%  endif %}
         </div>
 
-
+        <p></p>
 
         <div class="form-group">
             {{ form.submit}}
