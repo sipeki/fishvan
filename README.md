@@ -193,29 +193,29 @@ Thus it came down to what tools best integrated best with the core technologies.
 * Running before I could walk, or even crawl! Spent valuable time trying to try and deliver order filtering on . Rather than deliver more incremental functionality.
 
 
-##Future Features
+## Future Features
 * CSS and Branding
 
-###Should - Epic Sprint User Stories
+### Should - Epic Sprint User Stories
 * <i>Login as a customer user</i>
-* <b>Read</b> - List Customer Orders
-* <b>Create</b> - Customer Place Order
-* <b>Update</b> - Customer modifies order
-* <b>Delete</b> - Remove Unwanted Order
+  * <b>Read</b> - List Customer Orders
+  * <b>Create</b> - Customer Place Order
+  * <b>Update</b> - Customer modifies order
+  * <b>Delete</b> - Remove Unwanted Order
 
 ###Could - Epic Sprint User Stories
-* <i>Login as a fishmonger user</i>
-* <b>Create</b> - Create Stock Item
-* <b>Read</b> - List Stock Items 
-* <b>Update</b> - Modify Stock Item
-* <b>Delete</b> - Remove Stock Item
+* <i>Login as a fishmonger user and manage stock</i>
+  * <b>Create</b> - Create Stock Item
+  * <b>Read</b> - List Stock Items 
+  * <b>Update</b> - Modify Stock Item
+  * <b>Delete</b> - Remove Stock Item
 
 ###Won’t - Epic Sprint User Stories
-* <i>Login as a fishmonger user and order for customer</i>
-* <b>Create</b> - Create order for customer
-* <b>Read</b> - List particular customers orders
-* <b>Update</b> - Modify a customers order
-* <b>Delete</b> - Remove Customer order
+* <i>Login as a fishmonger user and manage customer orders</i>
+  * <b>Create</b> - Create order for customer
+  * <b>Read</b> - List particular customers orders
+  * <b>Update</b> - Modify a customers order
+  * <b>Delete</b> - Remove Customer order
 
 #Thank You!
 
