@@ -203,14 +203,14 @@ Thus it came down to what tools best integrated best with the core technologies.
   * <b>Update</b> - Customer modifies order
   * <b>Delete</b> - Remove Unwanted Order
 
-###Could - Epic Sprint User Stories
+### Could - Epic Sprint User Stories
 * <i>Login as a fishmonger user and manage stock</i>
   * <b>Create</b> - Create Stock Item
   * <b>Read</b> - List Stock Items 
   * <b>Update</b> - Modify Stock Item
   * <b>Delete</b> - Remove Stock Item
 
-###Won’t - Epic Sprint User Stories
+### Won’t - Epic Sprint User Stories
 * <i>Login as a fishmonger user and manage customer orders</i>
   * <b>Create</b> - Create order for customer
   * <b>Read</b> - List particular customers orders
