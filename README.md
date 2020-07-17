@@ -33,7 +33,7 @@ created project on the 6th of July 2020
 
 * CI Pipeline
 
-*Front-end Design
+* Front-end Design
 
 * Risk Assessment
 
