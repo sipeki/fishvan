@@ -2,10 +2,11 @@
 
 created project on the 6th of July 2020
 
-### Simon Kindlen
-#### DevOps and Cloud Consultant
-#### QA
 
+Simon Kindlen, 
+DevOps and Cloud Consultant,
+QA 
+![Simon kindlen](https://i.imgur.com/DAaZve5.jpg)
 >Introduction: In the next 20 minutes you will be taken through my project for DevOps Core Fundamentals. Demonstrating the technologies learnt in the last 5 weeks by deploying a CRUD web application.
 
 # Content
@@ -16,6 +17,7 @@ created project on the 6th of July 2020
 * Overview of the Application
 * Overview of the Project Management
 * Design
+  * Functionality
   * Wireframe
   * Data
   
@@ -27,7 +29,7 @@ created project on the 6th of July 2020
 * Demo
 * Lessons
 * Future Features
-* Author
+
 
 ## Brief
 
