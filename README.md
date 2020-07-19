@@ -1,6 +1,6 @@
 # FISH VAN
-
-created project on the 6th of July 2020
+![Fishvan](https://i.imgur.com/65a7xzl.png)
+Created project on the 6th of July 2020
 
 
 Simon Kindlen, 
