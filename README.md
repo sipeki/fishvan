@@ -142,7 +142,7 @@ The relationship shown here is that a stock item will appear in many order lines
 ![Must CRUD TABLE MVP Relation](https://i.imgur.com/hcCMt16.jpg)
 
 
-#### Should: Fish Van Application
+#### Should: Fishvan Application
 A user, customer user_type = 1, has many order lines. The order line has many stock items.
 
 ![Should CRUD TABLE MVP](https://i.imgur.com/z0uJIXE.jpg)
