@@ -201,6 +201,7 @@ Thus it came down to what tools best integrated best with the core technologies.
 
 ## Future Features
 * CSS and Branding
+* Dynamic Validation
 
 ### Should - Epic Sprint User Stories
 * <i>Login as a customer user</i>
