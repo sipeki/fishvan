@@ -173,6 +173,7 @@ A list of the technologies deployed to meet the requirements of the scope.
 
 ### Why these technologies?
 ![git hub newtork](https://i.imgur.com/j6yA7v7.jpg)
+
 During the initial weeks of Academy in teams we looked at the technologies required to deploy CI Pipeline. There are alot of options out there. It is possible to choose a provider that meets all the parts required for the pipeline. As it is important to have full integration between the steps to enable smooth flow for software to be developed. A robust pipeline, like any constant process manufacturing, produces a consistent high quality product.
 Without testing each option fully it would be difficult to ascertain the claims of the software manufacturer to be actuarial or vapourware.
 The current experience of myself required research on others more knowledgeable on CI to form my opinion on what technologies to choose.
