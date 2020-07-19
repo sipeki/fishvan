@@ -134,7 +134,7 @@ Complete design of the data was carried out for the full MoSCoW Epic Sprints. Th
 The application is data driven which makes it important to get the relationship correct before developing the methods to manipulate the data.
  
 
-#### Minimum Viable Product CRUD Van App - Orders List
+#### Minimum Viable Product CRUD Fishvan App - Orders List
 The relationship shown here is that a stock item will appear in many order lines.
 
 ![Must CRUD TABLE MVP](https://i.imgur.com/YpB4ycP.jpg)
