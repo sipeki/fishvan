@@ -5,7 +5,6 @@ Project created on the 6th of July 2020
 
 
 <b>Simon Kindlen</b>
- 
 DevOps and Cloud Consultant,
 QA 
 
